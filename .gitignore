@@ -30,3 +30,17 @@
 *.exe
 *.out
 *.app
+basic_binary_basic
+basic_binary_search
+.gitignore
+binary_search_basic_early_term
+binary_search_basic
+linear_search_basic
+linear_search_basic_early_term
+linear_search_vector
+linear_search_vector_early_term
+linear-search-basic
+main
+verifier
+
+tests/*

@@ -12,8 +12,8 @@ output_file_name="results/$2$3/${file_name}-result.json"
 
 hyperfine --warmup 5 --export-json $output_file_name \
     -N \
-    "./linear_search_basic ${file_name} ${2} ${3}" \
-    "./linear_search_vector ${file_name} ${2} ${3}"\
-    "./linear_search_basic_early_term ${file_name} ${2} ${3}"\
-    "./linear_search_vector_early_term ${file_name} ${2} ${3}"\
-    "./binary_search_basic ${file_name} ${2} ${3}"
+    "./build/algos/linear_search_basic ${file_name} ${2} ${3}" \
+    "./build/algos/linear_search_vector ${file_name} ${2} ${3}"\
+    "./build/algos/linear_search_basic_early_term ${file_name} ${2} ${3}"\
+    "./build/algos/linear_search_vector_early_term ${file_name} ${2} ${3}"\
+    "./build/algos/binary_search_basic ${file_name} ${2} ${3}"

@@ -7,13 +7,13 @@ fi
 
 
 for i in {0..9} ; do
-    ./verifier ${1} p $i
+    ./build/algos/verifier ${1} p $i
 done
 
 for i in {0..9} ; do
-    ./verifier ${1} q $i
+    ./build/algos/verifier ${1} q $i
 done
 
 for i in {0..19} ; do 
-    ./verifier ${1} n $i
+    ./build/algos/verifier ${1} n $i
 done

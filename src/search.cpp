@@ -13,16 +13,16 @@ constexpr size_t chunk_size = 256;
 // basic iterative binary search
 bool binary_search_basic(File const &file, uint32_t query) {
   ssize_t left_idx = 0;
-  ssize_t right_idx = file.size(32) - 1;
+  ssize_t right_idx = (ssize_t)file.size(32) - 1;
 
   while (left_idx <= right_idx) {
     ssize_t mid_idx = (right_idx - left_idx) / 2 + left_idx;
 
-    if (file.read32_reintc(mid_idx) == query) {
+    if (file.read32_reintc((ssize_t)mid_idx) == query) {
       return true;
     }
 
-    if (query < file.read32_reintc(mid_idx)) {
+    if (query < file.read32_reintc((ssize_t)mid_idx)) {
       right_idx = mid_idx - 1;
     } else {
       left_idx = mid_idx + 1;
@@ -32,25 +32,25 @@ bool binary_search_basic(File const &file, uint32_t query) {
 }
 
 // branchless and cache sensitive binary search
-bool binary_search_basic(File const &file, uint32_t query) {
-  ssize_t left_idx = 0;
-  ssize_t right_idx = file.size(32) - 1;
+// bool binary_search_basic(File const &file, uint32_t query) {
+//   ssize_t left_idx = 0;
+//   ssize_t right_idx = file.size(32) - 1;
 
-  while (left_idx <= right_idx) {
-    ssize_t mid_idx = (right_idx - left_idx) / 2 + left_idx;
+//   while (left_idx <= right_idx) {
+//     ssize_t mid_idx = (right_idx - left_idx) / 2 + left_idx;
 
-    if (file.read32_reintc(mid_idx) == query) {
-      return true;
-    }
+//     if (file.read32_reintc(mid_idx) == query) {
+//       return true;
+//     }
 
-    if (query < file.read32_reintc(mid_idx)) {
-      right_idx = mid_idx - 1;
-    } else {
-      left_idx = mid_idx + 1;
-    }
-  }
-  return false;
-}
+//     if (query < file.read32_reintc(mid_idx)) {
+//       right_idx = mid_idx - 1;
+//     } else {
+//       left_idx = mid_idx + 1;
+//     }
+//   }
+//   return false;
+// }
 
 // basic linear search
 bool linear_search_basic(File const &file, uint32_t query) {

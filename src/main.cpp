@@ -52,6 +52,13 @@ void test_all(File const &file, uint32_t query, bool expected) {
 }
 
 int main(int argc, char **argv) {
+
+  if (argc < 3) {
+    std::cerr << "you need to include a test name, query type, and query index"
+              << std::endl;
+    exit(1);
+  }
+
   std::string case_filename = "tests/";
   case_filename += argv[1];
   case_filename += ".case";
@@ -104,7 +111,7 @@ int main(int argc, char **argv) {
 
   // just some hacky stuff to parameterise
   // size_t query_idx = (argv[2][0] == 'p') ? 0 : 20;
-  size_t query_val;
+  uint32_t query_val;
   bool expected;
   size_t query_idx = (size_t)std::stoll(argv[3]);
   if (argv[2][0] == 'p') {
@@ -120,14 +127,12 @@ int main(int argc, char **argv) {
     std::cerr << "no query type specified" << std::endl;
     exit(1);
   }
-  // std::cout << binary_search_basic(test_file, query) << std::endl;
   // binary_search_basic(test_file, query_val);
   // linear_search_basic(test_file, query_val);
   // linear_search_vector(test_file, query_val);
-  linear_search_vector_early_term(test_file, query_val);
-  // std::cerr << "reading idx: " << query_idx << std::endl;
+  // linear_search_vector_early_term(test_file, query_val);
   // linear_search_basic_early_term(test_file, query_val);
-  // test_all(test_file, query_val, expected);
+  test_all(test_file, query_val, expected);
 }
 
 // hyperfine --warmup 3 --parameter-scan iter 0 9 -D 1 --export-markdown

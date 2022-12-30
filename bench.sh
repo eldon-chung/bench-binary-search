@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir -p "results/$1$2"
-
+sudo -v
 for entry in tests/*.case
 do
     y=${entry%.case}
@@ -14,7 +14,11 @@ do
 	# 	-L program binary_search_basic,linear_search_vector,linear_search_basic \
 	# 	"./{program} ${file_name} ${1} ${2}"
 	
-	hyperfine --warmup 5 --export-json $output_file_name \
+	# hyperfine --prepare 'echo 3 > /proc/sys/vm/drop_caches' \
+	# hyperfine --prepare 'sync' \
+	# hyperfine --prepare 'sync; echo 3 | sudo tee /proc/sys/vm/drop_caches' \
+	hyperfine --prepare 'sudo ./drop.sh' \
+		--export-json $output_file_name \
 		-N \
 		"./build/algos/linear_search_basic ${file_name} ${1} ${2}" \
 		"./build/algos/linear_search_vector ${file_name} ${1} ${2}"\

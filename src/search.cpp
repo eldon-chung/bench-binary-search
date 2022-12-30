@@ -8,7 +8,7 @@
 #include "search.h"
 
 // number of elements, not bytes that we are going to store
-constexpr size_t chunk_size = 256;
+constexpr size_t chunk_size = 1024;
 
 // basic iterative binary search
 bool binary_search_basic(File const &file, uint32_t query) {

@@ -135,7 +135,7 @@ for p in range(18):
     query_size = 10
 
     name = "chunked-random"
-    formatted_name = F"n-{name}-s-{pow_of_two}-w-{dt.name}"
+    formatted_name = F"n-{name}-s-{pow_of_two:02}-w-{dt.name}"
     print(F"generating for power {p}")
     value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
     verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)

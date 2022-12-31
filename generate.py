@@ -1,3 +1,4 @@
+import os
 import numpy as np
 
 it = np.uint32
@@ -13,6 +14,10 @@ def generate(formatted_name, upper_bound, array_size):
 
     # write bytes directly into the file
     # note: on Intel this is little endian
+    isExist = os.path.exists("tests")
+    if not isExist:
+        # Create a new directory because it does not exist
+        os.makedirs("tests")
 
     with open(F"tests/{formatted_name}.case", "wb") as f:
         f.write(value_list.tobytes())

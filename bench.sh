@@ -17,7 +17,8 @@ do
 	# hyperfine --prepare 'echo 3 > /proc/sys/vm/drop_caches' \
 	# hyperfine --prepare 'sync' \
 	# hyperfine --prepare 'sync; echo 3 | sudo tee /proc/sys/vm/drop_caches' \
-	hyperfine --prepare 'sudo ./drop.sh' \
+	# hyperfine --prepare 'sudo ./drop.sh' \
+	hyperfine --warmup 5 \
 		--export-json $output_file_name \
 		-N \
 		"./build/src/algos/linear_search_basic ${file_name} ${1} ${2}" \

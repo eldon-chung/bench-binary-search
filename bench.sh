@@ -20,11 +20,11 @@ do
 	hyperfine --prepare 'sudo ./drop.sh' \
 		--export-json $output_file_name \
 		-N \
-		"./build/algos/linear_search_basic ${file_name} ${1} ${2}" \
-		"./build/algos/linear_search_vector ${file_name} ${1} ${2}"\
-		"./build/algos/linear_search_basic_early_term ${file_name} ${1} ${2}"\
-		"./build/algos/linear_search_vector_early_term ${file_name} ${1} ${2}"\
-		"./build/algos/binary_search_basic ${file_name} ${1} ${2}"
+		"./build/src/algos/linear_search_basic ${file_name} ${1} ${2}" \
+		"../build/src/algos/linear_search_vector ${file_name} ${1} ${2}"\
+		"../build/src/algos/linear_search_basic_early_term ${file_name} ${1} ${2}"\
+		"../build/src/algos/linear_search_vector_early_term ${file_name} ${1} ${2}"\
+		"../build/src/algos/binary_search_basic ${file_name} ${1} ${2}"
 done
 
 

@@ -54,8 +54,10 @@ bool binary_search_basic(File const &file, uint32_t query) {
 
 // basic linear search
 bool linear_search_basic(File const &file, uint32_t query) {
-  for (size_t index = 0; index < file.size(32); ++index) {
-    if (file.read32_reintc(index) == query) {
+  auto begin = file.begin();
+  auto end = file.end();
+  while (begin != end) {
+    if (*begin == query) {
       return true;
     }
   }
@@ -64,13 +66,11 @@ bool linear_search_basic(File const &file, uint32_t query) {
 
 // basic linear search with early termination
 bool linear_search_basic_early_term(File const &file, uint32_t query) {
-  // std::cerr << "query:" << query << std::endl;
-  // std::cerr << file.size(32) << std::endl;
-
-  for (size_t index = 0; index < file.size(32); ++index) {
-    if (file.read32_reintc(index) >= query) {
-      // std::cerr << index << std::endl;
-      return file.read32_reintc(index) == query;
+  auto begin = file.begin();
+  auto end = file.end();
+  while (begin != end) {
+    if (*begin >= query) {
+      return *begin == query;
     }
   }
   return false;
@@ -95,14 +95,13 @@ bool linear_search_vector(File const &file, uint32_t query) {
     } else {
       // do loops based on chunk size
       // std::cout << "chunk loop" << std::endl;
-      const float *begin =
-          reinterpret_cast<const float *>(file.addr32(chunk_idx * chunk_size));
-      const float *end = reinterpret_cast<const float *>(
-          file.addr32((chunk_idx + 1) * chunk_size));
+      auto begin = (file.addr32(chunk_idx * chunk_size));
+      auto end = (file.addr32((chunk_idx + 1) * chunk_size));
 
       while (begin != end) {
         // load 8 of them
-        auto loaded_register = _mm256_loadu_ps(begin);
+        auto loaded_register =
+            _mm256_loadu_ps(reinterpret_cast<const float *>(begin));
 
         // do a comparison
         auto cmp_res = _mm256_cmpeq_epi32(broadcasted_register,
@@ -143,13 +142,13 @@ bool linear_search_vector_early_term(File const &file, uint32_t query) {
     } else {
       // do loops based on chunk size
       // std::cout << "chunk loop" << std::endl;
-      const float *begin =
-          reinterpret_cast<const float *>(file.addr32(chunk_idx * chunk_size));
-      const float *end = begin + chunk_size;
+      auto begin = (file.addr32(chunk_idx * chunk_size));
+      auto end = (file.addr32((chunk_idx + 1) * chunk_size));
 
       while (begin != end) {
         // load 8 of them
-        auto loaded_register = _mm256_loadu_ps(begin);
+        auto loaded_register =
+            _mm256_loadu_ps(reinterpret_cast<const float *>(begin));
 
         // do a comparison
         auto cmp_res = _mm256_cmpeq_epi32(_mm256_castps_si256(loaded_register),

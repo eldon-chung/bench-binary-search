@@ -1,6 +1,5 @@
 CXX := clang++
-CXXOPT := -O0
-
+CXXOPT := -O3
 
 CXXWARNINGS := -Wall -Wextra -pedantic -Wimplicit-fallthrough
 CXXWERROR := -Werror

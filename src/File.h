@@ -83,5 +83,8 @@ struct File {
     return reinterpret_cast<uint64_t const *>(m_view.data()) + index;
   }
 
+  uint32_t const *begin() const { return addr32(0); }
+  uint32_t const *end() const { return addr32(0) + m_view.size(); }
+
   size_t size(uint8_t width) const { return m_view.size() * 8 / width; }
 };

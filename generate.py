@@ -126,30 +126,30 @@ def verify(formatted_name, d_type, value_list, present_values_quantile, present_
 
     # print(read_value)
 
-for p in range(18):
-    pow_of_two = p
-    # max of uint_32 
-    upper_bound = (2 ** 32) - 1
-    # array_size = 15
-    array_size = (2 ** pow_of_two) * (1024 * 2)
-    query_size = 10
+# for p in range(18):
+#     pow_of_two = p
+#     # max of uint_32 
+#     upper_bound = (2 ** 32) - 1
+#     # array_size = 15
+#     array_size = (2 ** pow_of_two) * (1024 * 2)
+#     query_size = 10
 
-    name = "chunked-random"
-    formatted_name = F"n-{name}-s-{pow_of_two:02}-w-{dt.name}"
-    print(F"generating for power {p}")
-    value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
-    verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)
-    print("===================================================")
+#     name = "chunked-random"
+#     formatted_name = F"n-{name}-s-{pow_of_two:02}-w-{dt.name}"
+#     print(F"generating for power {p}")
+#     value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
+#     verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)
+#     print("===================================================")
 
-# pow_of_two = 17
-# # max of uint_32 
-# upper_bound = (2 ** 32) - 1
-# # array_size = 15
-# array_size = (2 ** pow_of_two) * (2 ** 10) * 2
-# query_size = 10
+pow_of_two = 17
+# max of uint_32 
+upper_bound = (2 ** 32) - 1
+# array_size = 15
+array_size = (2 ** pow_of_two) * (2 ** 10) * 2
+query_size = 10
 
-# name = "chunked-random"
-# formatted_name = F"n-{name}-s-{pow_of_two}-w-{dt.name}"
-# print(F"generating for power {pow_of_two}")
-# value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
-# verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)
+name = "chunked-random"
+formatted_name = F"n-{name}-s-{pow_of_two}-w-{dt.name}"
+print(F"generating for power {pow_of_two}")
+value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
+verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)

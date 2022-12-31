@@ -45,3 +45,4 @@ verifier
 
 tests/*
 results/*
+build/*

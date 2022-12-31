@@ -54,12 +54,13 @@ bool binary_search_basic(File const &file, uint32_t query) {
 
 // basic linear search
 bool linear_search_basic(File const &file, uint32_t query) {
-  auto begin = file.begin();
-  auto end = file.end();
+  const uint32_t *begin = file.begin();
+  const uint32_t *end = file.end();
   while (begin != end) {
     if (*begin == query) {
       return true;
     }
+    ++begin;
   }
   return false;
 }
@@ -72,6 +73,7 @@ bool linear_search_basic_early_term(File const &file, uint32_t query) {
     if (*begin >= query) {
       return *begin == query;
     }
+    ++begin;
   }
   return false;
 }

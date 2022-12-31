@@ -1,20 +1,22 @@
 #!/bin/bash
 
 
-if [ $# -eq 0 ]; then
-    echo "You need to provide a test case"
-    exit 1
-fi
 
+for entry in tests/*.case ; do
 
-for i in {0..9} ; do
-    ./build/src/algos/verifier ${1} p $i
-done
+    y=${entry%.case}
+    file_name=${y##*/}
+    echo testing $file_name
 
-for i in {0..9} ; do
-    ./build/src/algos/verifier ${1} q $i
-done
+    for i in {0..9} ; do
+        if ! ./build/src/algos/verifier $file_name p $i ; then exit 1 ; fi
+    done
 
-for i in {0..19} ; do 
-    ./build/src/algos/verifier ${1} n $i
+    for i in {0..9} ; do
+        if ! ./build/src/algos/verifier $file_name q $i ; then exit 1 ; fi
+    done
+
+    for i in {0..19} ; do 
+        if ! ./build/src/algos/verifier $file_name n $i ; then exit 1 ; fi
+    done
 done

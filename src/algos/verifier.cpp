@@ -15,40 +15,51 @@
 #include "../File.h"
 #include "../search.h"
 
-void test_all(File const &file, uint32_t query, bool expected) {
+bool test_all(File const &file, uint32_t query, bool expected) {
   std::cout << "Query: " << query << std::endl;
   bool failed = false;
   if (binary_search_basic(file, query) != expected) {
     std::cout << "binary_search_basic: Failed. Expected " << expected
               << std::endl;
     failed = true;
+  } else {
+    std::cout << "binary_search_basic: Passed." << std::endl;
   }
   if (linear_search_basic(file, query) != expected) {
     std::cout << "linear_search_basic: Failed. Expected " << expected
               << std::endl;
     failed = true;
+  } else {
+    std::cout << "linear_search_basic: Passed.";
   }
   if (linear_search_vector(file, query) != expected) {
     std::cout << "linear_search_vector: Failed. Expected " << expected
               << std::endl;
     failed = true;
+  } else {
+    std::cout << "linear_search_vector: Passed." << std::endl;
   }
 
   if (linear_search_basic_early_term(file, query) != expected) {
     std::cout << "linear_search_basic_early_term: Failed. Expected " << expected
               << std::endl;
     failed = true;
+  } else {
+    std::cout << "linear_search_basic_early_term: Passed." << std::endl;
   }
   if (linear_search_vector_early_term(file, query) != expected) {
     std::cout << "linear_search_vector_early_term: Failed. Expected "
               << expected << std::endl;
     failed = true;
+  } else {
+    std::cout << "linear_search_vector_early_term: Passed." << std::endl;
   }
 
   if (!failed) {
     std::cout << "Tests Passed." << std::endl;
   }
   std::cout << "==================================" << std::endl;
+  return failed;
 }
 
 int main(int argc, char **argv) {
@@ -132,7 +143,11 @@ int main(int argc, char **argv) {
   // linear_search_vector(test_file, query_val);
   // linear_search_vector_early_term(test_file, query_val);
   // linear_search_basic_early_term(test_file, query_val);
-  test_all(test_file, query_val, expected);
+  if (test_all(test_file, query_val, expected)) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 // hyperfine --warmup 3 --parameter-scan iter 0 9 -D 1 --export-markdown

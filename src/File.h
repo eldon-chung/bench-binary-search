@@ -84,7 +84,7 @@ struct File {
   }
 
   uint32_t const *begin() const { return addr32(0); }
-  uint32_t const *end() const { return addr32(0) + m_view.size(); }
+  uint32_t const *end() const { return addr32(0) + size(32); }
 
   size_t size(uint8_t width) const { return m_view.size() * 8 / width; }
 };

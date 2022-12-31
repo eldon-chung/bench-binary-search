@@ -1,13 +1,13 @@
 #!/bin/bash
 
 for i in {0..9} ; do
-    ./bench p $i
+    ./bench.sh p $i
 done
 
 for i in {0..9} ; do
-    ./bench q $i
+    ./bench.sh q $i
 done
 
 for i in {0..19} ; do 
-    ./bench n $i
+    ./bench.sh n $i
 done

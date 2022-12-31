@@ -4,7 +4,6 @@ import numpy as np
 it = np.uint32
 dt = np.dtype(np.uint32)
 
-
 def generate(formatted_name, upper_bound, array_size):
     value_list = np.random.randint(0, high=upper_bound, size=array_size, dtype=it)
     value_list = np.sort(value_list, kind="quicksort")
@@ -29,16 +28,16 @@ def generate(formatted_name, upper_bound, array_size):
     present_values = np.sort(np.random.choice(value_list, size=query_size), kind="quicksort")
     print("sampled present values.")
 
-    non_present_values = np.sort(np.random.randint(0, size=(query_size * 2), high=upper_bound, dtype=it))
+    non_present_values = np.random.randint(0, size=(query_size * 2), high=upper_bound, dtype=it)
     num_attempts = 0
     print(F"sampling non array.", end="\r")
 
     while np.isin(non_present_values, value_list).any():
-        non_present_values = np.sort(np.random.randint(0, size=(query_size * 2), high=upper_bound, dtype=it))
+        non_present_values = np.random.randint(0, size=(query_size * 2), high=upper_bound, dtype=it)
         print(F"resampling non array. {num_attempts} attempt(s)", end="\r")
         num_attempts += 1
     print()
-    np.sort(non_present_values, kind="quicksort")
+    non_present_values = np.sort(non_present_values, kind="quicksort")
     # print(F"after sampling: {non_present_values}")
     
 
@@ -127,30 +126,30 @@ def verify(formatted_name, d_type, value_list, present_values_quantile, present_
 
     # print(read_value)
 
-# for p in range(16):
-#     pow_of_two = p
-#     # max of uint_32 
-#     upper_bound = (2 ** 32) - 1
-#     # array_size = 15
-#     array_size = (2 ** pow_of_two) * 1024 * 5
-#     query_size = 10
+for p in range(18):
+    pow_of_two = p
+    # max of uint_32 
+    upper_bound = (2 ** 32) - 1
+    # array_size = 15
+    array_size = (2 ** pow_of_two) * (1024 * 2)
+    query_size = 10
 
-#     name = "chunked-random"
-#     formatted_name = F"n-{name}-s-{pow_of_two}-w-{dt.name}"
-#     print(F"generating for power {p}")
-#     value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
-#     verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)
-#     print("===================================================")
+    name = "chunked-random"
+    formatted_name = F"n-{name}-s-{pow_of_two}-w-{dt.name}"
+    print(F"generating for power {p}")
+    value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
+    verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)
+    print("===================================================")
 
-pow_of_two = 16
-# max of uint_32 
-upper_bound = (2 ** 32) - 1
-# array_size = 15
-array_size = (2 ** pow_of_two) * (2 ** 10) * 5
-query_size = 10
+# pow_of_two = 17
+# # max of uint_32 
+# upper_bound = (2 ** 32) - 1
+# # array_size = 15
+# array_size = (2 ** pow_of_two) * (2 ** 10) * 2
+# query_size = 10
 
-name = "chunked-random"
-formatted_name = F"n-{name}-s-{pow_of_two}-w-{dt.name}"
-print(F"generating for power {pow_of_two}")
-value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
-verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)
+# name = "chunked-random"
+# formatted_name = F"n-{name}-s-{pow_of_two}-w-{dt.name}"
+# print(F"generating for power {pow_of_two}")
+# value_list, present_values_quantile, present_value, non_present_value = generate(formatted_name, upper_bound, array_size)
+# verify(formatted_name, dt, value_list, present_values_quantile, present_value, non_present_value)

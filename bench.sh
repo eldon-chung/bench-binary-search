@@ -1,7 +1,7 @@
 #!/bin/bash
 
 mkdir -p "results/$1$2"
-sudo -v
+# sudo -v
 for entry in tests/*.case
 do
     y=${entry%.case}
@@ -22,10 +22,10 @@ do
 		--export-json $output_file_name \
 		-N \
 		"./build/src/algos/linear_search_basic ${file_name} ${1} ${2}" \
-		"../build/src/algos/linear_search_vector ${file_name} ${1} ${2}"\
-		"../build/src/algos/linear_search_basic_early_term ${file_name} ${1} ${2}"\
-		"../build/src/algos/linear_search_vector_early_term ${file_name} ${1} ${2}"\
-		"../build/src/algos/binary_search_basic ${file_name} ${1} ${2}"
+		"./build/src/algos/linear_search_vector ${file_name} ${1} ${2}"\
+		"./build/src/algos/linear_search_basic_early_term ${file_name} ${1} ${2}"\
+		"./build/src/algos/linear_search_vector_early_term ${file_name} ${1} ${2}"\
+		"./build/src/algos/binary_search_basic ${file_name} ${1} ${2}"
 done
 
 

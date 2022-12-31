@@ -18,6 +18,7 @@ CXXFLAGS += $(CXXWERROR)
 CXXFLAGS += -march=native
 
 BUILDDIR := build
+TESTDIR := tests
 OBJDIR := $(BUILDDIR)/objs-$(CXX)
 
 PRECIOUS_TARGETS += $(BUILDDIR)
@@ -42,6 +43,12 @@ $(BUILDDIR)/%: $(OBJDIR)/%.o $(DEPS_SOURCE) Makefile
 
 clean: Makefile
 	rm -fr $(BUILDDIR)
+
+clean-tests:
+	rm -fr $(TESTDIR)/
+
+tests:
+	python3 generate.py
 
 format:
 	clang-format -i $(SRCS)

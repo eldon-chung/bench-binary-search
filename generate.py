@@ -24,12 +24,11 @@ def generate(formatted_name, upper_bound, array_size, query_size):
     # select the quantiles in the array to remove, these will form the non-present queries
     non_present_values = np.quantile(value_list, [ (1 / query_size) * i for i in range(1, query_size + 1) ], method='nearest')
     
-    # get the indices to remove
-    non_present_indices = np.where( value_list in non_present_values ) 
-    
-    # remove them from the list
-    value_list = np.delete(value_list, non_present_indices)
-    
+    # slow but whatever
+    for npv in non_present_value:
+        index = np.argwhere(value_list == npv)
+        value_list = np.delete(index)
+
     # select the quantiles in the array
     present_values_quantile = np.quantile(value_list, [ (1 / query_size) * i for i in range(1,query_size + 1) ], method='nearest')
     print("sampled quantiles.")

@@ -8,6 +8,6 @@ for i in {0..9} ; do
     ./bench.sh q $i
 done
 
-for i in {0..19} ; do 
+for i in {0..9} ; do 
     ./bench.sh n $i
 done

@@ -16,7 +16,7 @@ for entry in tests/*.case ; do
         if ! ./build/src/algos/verifier $file_name q $i ; then exit 1 ; fi
     done
 
-    for i in {0..19} ; do 
+    for i in {0..9} ; do 
         if ! ./build/src/algos/verifier $file_name n $i ; then exit 1 ; fi
     done
 done

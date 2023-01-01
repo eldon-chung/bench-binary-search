@@ -44,5 +44,5 @@ main
 verifier
 
 tests/*
-results/*
 build/*
+result.tar.gz

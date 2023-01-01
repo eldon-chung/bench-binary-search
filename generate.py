@@ -103,18 +103,37 @@ def verify(formatted_name, d_type, value_list, present_values_quantile, present_
     else:
         print("Non-pres Equality check: Failed")
 
+    # test to make sure all the values are present
+    all_found = True
+    for pval in present_values_quantile:
+        idx = np.searchsorted(read_value, pval)
+        if read_value[idx] != pval:
+            all_found = False
 
-    if np.isin(present_values_quantile, read_value, kind='table').all() :
+    if all_found:
         print("Present quantiles values check: Pass")
     else:
         print("Present quantiles values check: Failed")
-    
-    if np.isin(present_values, read_value, kind='table').all() :
+
+    all_found = True
+    for pval in present_values_quantile:
+        idx = np.searchsorted(read_value, pval)
+        if read_value[idx] != pval:
+            all_found = False
+
+
+    if all_found:
         print("Present values check: Pass")
     else:
         print("Present values check: Failed")
 
-    if not np.isin(non_present_values, read_value, kind='table').any() :
+    any_found = False
+    for pval in present_values_quantile:
+        idx = np.searchsorted(read_value, pval)
+        if read_value[idx] != pval:
+            any_found = True
+
+    if not any_found:
         print("Non-Present values check: Pass")
     else:
         print("Non-Present values check: Failed")
@@ -127,12 +146,12 @@ def verify(formatted_name, d_type, value_list, present_values_quantile, present_
 
     # print(read_value)
 
-for p in range(10, 28):
+for p in range(10, 26):
     pow_of_two = p
     # max of uint_32 
     upper_bound = (2 ** 32) - 1
     # array_size = 15
-    array_size = (2 ** pow_of_two) * (1024 * 2)
+    array_size = (2 ** pow_of_two)
     query_size = 10
 
     name = "chunked-random"

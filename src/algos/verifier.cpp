@@ -16,7 +16,7 @@
 #include "../search.h"
 
 bool test_all(File const &file, uint32_t query, bool expected) {
-  std::cout << "Query: " << query << std::endl;
+  // std::cout << "Query: " << query << std::endl;
   bool failed = false;
 
   if (binary_search_basic(file, query) != expected) {
@@ -91,6 +91,8 @@ int main(int argc, char **argv) {
     exit(1);
   }
 
+  std::cout << argv[1] << " " << argv[2] << " " << argv[3] << std::endl;
+
   std::string case_filename = "tests/";
   case_filename += argv[1];
   case_filename += ".case";
@@ -157,7 +159,7 @@ int main(int argc, char **argv) {
     expected = false;
   } else {
     std::cerr << "no query type specified" << std::endl;
-    exit(1);
+    return 1;
   }
   // binary_search_basic(test_file, query_val);
   // linear_search_basic(test_file, query_val);

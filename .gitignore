@@ -47,5 +47,6 @@ tests/*
 build/*
 result.tar.gz
 .ipynb_checkpoints/*
+.vscode/*
 
 p2.tar.gz

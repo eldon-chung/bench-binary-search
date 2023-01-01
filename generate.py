@@ -146,7 +146,7 @@ def verify(formatted_name, d_type, value_list, present_values_quantile, present_
 
     # print(read_value)
 
-for p in range(10, 26):
+for p in range(29, 30):
     pow_of_two = p
     # max of uint_32 
     upper_bound = (2 ** 32) - 1

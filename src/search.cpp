@@ -143,7 +143,6 @@ bool linear_search_vector_early_term(File const &file, uint32_t query) {
 
     } else {
       // do loops based on chunk size
-      // std::cout << "chunk loop" << std::endl;
       auto begin = (file.addr32(chunk_idx * chunk_size));
       auto end = (file.addr32((chunk_idx + 1) * chunk_size));
 
@@ -165,16 +164,12 @@ bool linear_search_vector_early_term(File const &file, uint32_t query) {
         // if any are yes, we break and output true
         int cmp_movemask = _mm256_movemask_ps(_mm256_castsi256_ps(cmp_res));
         if (cmp_movemask != 0) {
-          // std::cerr << "cmp_movemask: " << cmp_movemask << std::endl;
-          // std::cerr << "early term chunk idx: " << chunk_idx << std::endl;
           return true;
         }
 
         // if any are yes, we break and output false; early termination
         int gt_movemask = _mm256_movemask_ps(_mm256_castsi256_ps(max_cmp_res));
         if (gt_movemask != 0) {
-          // std::cerr << "gt_movemask: " << gt_movemask << std::endl;
-          // std::cerr << "early term chunk idx: " << chunk_idx << std::endl;
           return false;
         }
 
@@ -222,12 +217,6 @@ bool linear_search_vector_early_term_twin_load(File const &file,
         auto cmp_res2 = _mm256_cmpeq_epi32(
             _mm256_castps_si256(loaded_register2), broadcasted_register);
 
-        // unsigned comparison the query against the loaded register
-        // auto max_register1 = _mm256_max_epu32(
-        //     _mm256_castps_si256(loaded_register1), broadcasted_register);
-        // auto max_cmp_res1 = _mm256_cmpeq_epi32(
-        //     _mm256_castps_si256(loaded_register1), max_register1);
-
         auto max_register2 = _mm256_max_epu32(
             _mm256_castps_si256(loaded_register2), broadcasted_register);
         auto max_cmp_res2 = _mm256_cmpeq_epi32(
@@ -237,20 +226,13 @@ bool linear_search_vector_early_term_twin_load(File const &file,
         int cmp_movemask1 = _mm256_movemask_ps(_mm256_castsi256_ps(cmp_res1));
         int cmp_movemask2 = _mm256_movemask_ps(_mm256_castsi256_ps(cmp_res2));
         if (cmp_movemask1 != 0 || cmp_movemask2 != 0) {
-          // std::cerr << "cmp_movemask: " << cmp_movemask << std::endl;
-          // std::cerr << "early term chunk idx: " << chunk_idx << std::endl;
           return true;
         }
 
-        // if any are yes, we break and output false; early termination
-        // int gt_movemask1 =
-        // _mm256_movemask_ps(_mm256_castsi256_ps(max_cmp_res1));
         int gt_movemask2 =
             _mm256_movemask_ps(_mm256_castsi256_ps(max_cmp_res2));
         // tbh we can just check the second one because the list is sorted
         if (gt_movemask2 != 0) {
-          // std::cerr << "gt_movemask: " << gt_movemask << std::endl;
-          // std::cerr << "early term chunk idx: " << chunk_idx << std::endl;
           return false;
         }
 

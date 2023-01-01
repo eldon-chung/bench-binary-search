@@ -46,3 +46,6 @@ verifier
 tests/*
 build/*
 result.tar.gz
+.ipynb_checkpoints/*
+
+p2.tar.gz

@@ -10,7 +10,7 @@ output_file_name="results/$2$3/${file_name}-result.json"
 # 	-L program binary_search_basic,linear_search_vector,linear_search_basic \
 # 	"./{program} ${file_name} ${1} ${2}"
 
-hyperfine --warmup 5 --export-json $output_file_name \
+hyperfine --show-output --warmup 5 --export-json $output_file_name \
     -N \
     "./build/src/algos/linear_search_basic ${file_name} ${2} ${3}" \
     "./build/src/algos/linear_search_vector ${file_name} ${2} ${3}"\

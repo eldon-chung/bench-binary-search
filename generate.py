@@ -18,8 +18,6 @@ def generate(formatted_name, upper_bound, array_size, query_size):
         # Create a new directory because it does not exist
         os.makedirs("tests")
 
-    with open(F"tests/{formatted_name}.case", "wb") as f:
-        f.write(value_list.tobytes())
 
     # select the quantiles in the array to remove, these will form the non-present queries
     non_present_values = np.quantile(value_list, [ (1 / query_size) * i for i in range(1, query_size + 1) ], method='nearest')
@@ -28,6 +26,11 @@ def generate(formatted_name, upper_bound, array_size, query_size):
     for npv in non_present_values:
         index = np.argwhere(value_list == npv)
         value_list = np.delete(value_list, index)
+    print("sampled non present values.")
+
+
+    with open(F"tests/{formatted_name}.case", "wb") as f:
+        f.write(value_list.tobytes())
 
     # select the quantiles in the array
     present_values_quantile = np.quantile(value_list, [ (1 / query_size) * i for i in range(1,query_size + 1) ], method='nearest')

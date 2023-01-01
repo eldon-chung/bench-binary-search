@@ -104,17 +104,17 @@ def verify(formatted_name, d_type, value_list, present_values_quantile, present_
         print("Non-pres Equality check: Failed")
 
 
-    if np.isin(present_values_quantile, read_value).all() :
+    if np.isin(present_values_quantile, read_value, kind='table').all() :
         print("Present quantiles values check: Pass")
     else:
         print("Present quantiles values check: Failed")
     
-    if np.isin(present_values, read_value).all() :
+    if np.isin(present_values, read_value, kind='table').all() :
         print("Present values check: Pass")
     else:
         print("Present values check: Failed")
 
-    if not np.isin(non_present_values, read_value).any() :
+    if not np.isin(non_present_values, read_value, kind='table').any() :
         print("Non-Present values check: Pass")
     else:
         print("Non-Present values check: Failed")

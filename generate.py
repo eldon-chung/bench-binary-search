@@ -25,7 +25,7 @@ def generate(formatted_name, upper_bound, array_size, query_size):
     non_present_values = np.quantile(value_list, [ (1 / query_size) * i for i in range(1, query_size + 1) ], method='nearest')
     
     # slow but whatever
-    for npv in non_present_value:
+    for npv in non_present_values:
         index = np.argwhere(value_list == npv)
         value_list = np.delete(index)
 
